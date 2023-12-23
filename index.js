@@ -29,12 +29,18 @@ async function run() {
 
         const dirveGearProducts = client.db('dirveGear').collection('products');
 
+        app.get('/products', async(req,res)=>{
+            const cursor = dirveGearProducts.find();
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+
         app.post('/products' , async(req,res)=> {
             const newProducts = req.body;
             const result = await dirveGearProducts.insertOne(newProducts);
             res.send(result)
         } )
-        
+
 
 
 
