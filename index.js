@@ -28,6 +28,7 @@ async function run() {
         client.connect();
 
         const dirveGearProducts = client.db('dirveGear').collection('products');
+        const diverGearCart = client.db('dirveGear').collection('userCard');
 
         app.get('/products', async(req,res)=>{
             const cursor = dirveGearProducts.find();
@@ -67,8 +68,18 @@ async function run() {
             res.send(result);
         })
 
+        app.post('/user-cart', async(req,res) => {
 
+            const cart = req.body;
+            const result = await diverGearCart.insertOne(cart);
+            res.send(result);
+            
+        })
+        
+        app.get('/user-cart' , async(req,res) => {
 
+            res.send('data will come.....')
+        })
 
         
         // Send a ping to confirm a successful connection
