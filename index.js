@@ -78,9 +78,17 @@ async function run() {
         
         app.get('/user-cart' , async(req,res) => {
 
-            res.send('data will come.....')
+            const carsor = diverGearCart.find();
+            const result = await carsor.toArray();
+            res.send(result)
         })
 
+        app.delete('/user-cart/:id', async(req,res)=>{
+            const id = req.params.id;
+            const filter = {_id : new ObjectId(id)};
+            const result = await diverGearCart.deleteOne(filter);
+            res.send(result);
+        })
         
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
